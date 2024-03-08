@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345qQ_
+    ports:
+      - '33062:3306'
+    command: --init-file /init.sql
+    volumes:
+      - sql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin
+    environment:
+      PMA_HOST: database
+      PMA_PORT: '3306'
+    ports:
+      - '8085:80'
+
+volumes:
+  sql_data:
