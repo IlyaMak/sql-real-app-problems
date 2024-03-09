@@ -8,12 +8,15 @@ DROP PROCEDURE IF EXISTS generate_data;
 DELIMITER $$
 CREATE PROCEDURE generate_data()
 BEGIN
+    # Dynamic query with prepared statement is ~10x faster than simple "INSERT call"
+    # Runtime ~82 seconds
+
     DECLARE i INT DEFAULT 0;
     DECLARE j INT DEFAULT 0;
     DECLARE createdAt DATETIME;
     DECLARE updatedAt DATETIME;
 
-    WHILE i < 100 DO
+    WHILE i < 1000 DO
         SET createdAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00');
         SET updatedAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, createdAt, '2023-12-31 23:59:59')), createdAt);
         SET @query =
@@ -30,7 +33,7 @@ BEGIN
                 '")'
             );
 
-        WHILE j < 99 DO
+        WHILE j < 999 DO
             SET createdAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00');
             SET updatedAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, createdAt, '2023-12-31 23:59:59')), createdAt);
             SET @query = CONCAT(
