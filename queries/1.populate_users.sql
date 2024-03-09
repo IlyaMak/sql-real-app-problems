@@ -9,8 +9,6 @@ DELIMITER $$
 CREATE PROCEDURE generate_data()
 BEGIN
     # Dynamic query with prepared statement is 2x slower than the current solution
-    # Runtime 39 seconds
-
     DECLARE i INT DEFAULT 0;
     DECLARE createdAt1 DATETIME;
     DECLARE updatedAt1 DATETIME;
@@ -22,11 +20,11 @@ BEGIN
     DECLARE updatedAt4 DATETIME;
     DECLARE createdAt5 DATETIME;
     DECLARE updatedAt5 DATETIME;
-    SET @initialDate = '2022-01-01 00:00:00';
-    SET @finalDate = '2023-12-31 23:59:59';
-    SET @mailDomain = '@example.com';
 
     WHILE i < 200000 DO
+        SET @initialDate = '2022-01-01 00:00:00';
+        SET @finalDate = '2023-12-31 23:59:59';
+        SET @mailDomain = '@example.com';
         SET createdAt1 = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, @initialDate, @finalDate)), @initialDate);
         SET updatedAt1 = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, createdAt1, @finalDate)), createdAt1);
         SET createdAt2 = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, @initialDate, @finalDate)), @initialDate);
