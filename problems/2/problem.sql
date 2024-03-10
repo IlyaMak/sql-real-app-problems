@@ -1,0 +1,1 @@
+# Display statistic of how many users registered by month
