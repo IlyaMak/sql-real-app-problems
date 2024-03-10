@@ -1,0 +1,1 @@
+# Display the largest month by number of user registrations
