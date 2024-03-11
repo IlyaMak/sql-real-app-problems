@@ -10,12 +10,11 @@ DELIMITER $$
 CREATE PROCEDURE generate_data()
 BEGIN
     DECLARE i INT DEFAULT 0;
-    DECLARE j INT DEFAULT 0;
     DECLARE cancelledAt VARCHAR(21);
     DECLARE createdAt DATETIME;
     DECLARE productId VARCHAR(18);
 
-    WHILE i < 1415 DO
+    WHILE i < 2000 DO
         SET createdAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00');
         SET cancelledAt =
             CONCAT(
@@ -28,8 +27,9 @@ BEGIN
         SET @query =
                 'INSERT INTO `transactions` (`order_id`,`transaction_id`,`user_id`,`store`,`price`,`product_id`,`cancelled_at`,`created_at`)
                 VALUES ';
+        SET @j = 0;
 
-        WHILE j < 1415 DO
+        WHILE @j < 1000 DO
             SET createdAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00');
             SET cancelledAt =
                 CONCAT(
@@ -40,7 +40,7 @@ BEGIN
             SET cancelledAt = IF(productId IN('product1', 'product2'), 'NULL', cancelledAt);
             SET @query = CONCAT(
                 @query,
-                IF(j = 0, '', ','),
+                IF(@j = 0, '', ','),
                 '(
                     UUID(),
                     UUID(),
@@ -54,12 +54,11 @@ BEGIN
                     createdAt,
                 '")'
             );
-            SET j = j + 1;
+            SET @j = @j + 1;
         END WHILE;
 
         PREPARE myquery FROM @query;
         EXECUTE myquery;
-        SET j = 0;
         SET i = i + 1;
     END WHILE;
 END$$
