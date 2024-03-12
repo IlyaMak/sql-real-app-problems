@@ -1,1 +1,1 @@
-# Get transactions on a specific day
+# Get transactions with user data on 2023-01-01
