@@ -1,0 +1,1 @@
+# Calculate how much money earned, broken down by year and subscription
