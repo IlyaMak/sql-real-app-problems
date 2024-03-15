@@ -37,7 +37,10 @@ BEGIN
                     TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, createdAt, '2023-12-31 23:59:59')), createdAt),
                     '"'
                 );
-            SET cancelledAt = IF(productId IN('product1', 'product2'), 'NULL', cancelledAt);
+            SET cancelledAt = IF(
+                productId IN('product1', 'product2'),
+                'NULL',
+                ELT(FLOOR(RAND() * 2) + 1, 'NULL', cancelledAt));
             SET @query = CONCAT(
                 @query,
                 IF(@j = 0, '', ','),
