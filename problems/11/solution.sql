@@ -1,5 +1,5 @@
 # Runtime ~18 seconds
-SELECT ROUND(AVG(t.user_spending), 2), t.year FROM (
+SELECT ROUND(AVG(t.user_spending), 2) AS average_user_spending, t.year FROM (
     SELECT user_id, YEAR(created_at) AS year, SUM(
         CASE
             WHEN product_id IN ('subscription.week', 'subscription.month') THEN
