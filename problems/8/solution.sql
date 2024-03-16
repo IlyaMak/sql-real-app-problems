@@ -6,7 +6,7 @@ SELECT
                     DAY,
                     created_at,
                     CASE
-                        WHEN cancelled_at = NULL THEN '2023-12-31 23:59:59'
+                        WHEN cancelled_at IS NULL THEN '2023-12-31 23:59:59'
                         ELSE cancelled_at
                     END
                 ) / CASE
@@ -18,7 +18,7 @@ SELECT
                     DAY,
                     created_at,
                     CASE
-                        WHEN cancelled_at = NULL THEN '2023-12-31 23:59:59'
+                        WHEN cancelled_at IS NULL THEN '2023-12-31 23:59:59'
                         ELSE cancelled_at
                     END
                 ) / CASE
@@ -30,7 +30,7 @@ SELECT
                     DAY,
                     created_at,
                     CASE
-                        WHEN cancelled_at = NULL THEN '2023-12-31 23:59:59'
+                        WHEN cancelled_at IS NULL THEN '2023-12-31 23:59:59'
                         ELSE cancelled_at
                     END
                 ) / CASE

@@ -1,0 +1,1 @@
+# Calculate average user spending per year. Take subscription periods into consideration
