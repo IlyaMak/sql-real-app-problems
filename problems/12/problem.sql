@@ -1,0 +1,1 @@
+# Count percentage how many users had a transaction before they were registered
