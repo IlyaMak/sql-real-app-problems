@@ -45,14 +45,14 @@ CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS localizations (
     id INT NOT NULL AUTO_INCREMENT,
+    child_id INT NOT NULL,
+    entity VARCHAR(255) NOT NULL,
+    key_name VARCHAR(255) NOT NULL,
     be VARCHAR(255) NOT NULL,
     cz VARCHAR(255) NOT NULL,
     en VARCHAR(255) NOT NULL,
     lv VARCHAR(255) NOT NULL,
     pl VARCHAR(255) NOT NULL,
-    child_id INT NOT NULL,
-    entity VARCHAR(255) NOT NULL,
-    key_name VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 )
 CHARSET=utf8 COLLATE=utf8_unicode_ci;

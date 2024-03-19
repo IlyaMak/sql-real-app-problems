@@ -1,24 +1,24 @@
 # Runtime ~0.001 seconds
-INSERT INTO `localizations` (`be`,`cz`,`en`,`lv`,`pl`,`child_id`,`entity`,`key_name`)
-SELECT `name_be`,`name_cz`,`name_en`,`name_lv`,`name_pl`,`id`,'category','name'
+INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
+SELECT `id`,'category','name',`name_be`,`name_cz`,`name_en`,`name_lv`,`name_pl`
 FROM `categories`
 LIMIT 5;
 
 # Runtime ~0.002 seconds
-INSERT INTO `localizations` (`be`,`cz`,`en`,`lv`,`pl`,`child_id`,`entity`,`key_name`)
-SELECT `name_be`,`name_cz`,`name_en`,`name_lv`,`name_pl`,`id`,'category','name'
+INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
+SELECT `id`,'category','name',`name_be`,`name_cz`,`name_en`,`name_lv`,`name_pl`
 FROM `categories`
 LIMIT 5 OFFSET 5;
 
 # Runtime ~0.002 seconds
-INSERT INTO `localizations` (`be`,`cz`,`en`,`lv`,`pl`,`child_id`,`entity`,`key_name`)
-SELECT `description_be`,`description_cz`,`description_en`,`description_lv`,`description_pl`,`id`,'category','description'
+INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
+SELECT `id`,'category','description',`description_be`,`description_cz`,`description_en`,`description_lv`,`description_pl`
 FROM `categories`
 LIMIT 5;
 
 # Runtime ~0.003 seconds
-INSERT INTO `localizations` (`be`,`cz`,`en`,`lv`,`pl`,`child_id`,`entity`,`key_name`)
-SELECT `description_be`,`description_cz`,`description_en`,`description_lv`,`description_pl`,`id`,'category','description'
+INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
+SELECT `id`,'category','description',`description_be`,`description_cz`,`description_en`,`description_lv`,`description_pl`
 FROM `categories`
 LIMIT 5 OFFSET 5;
 
