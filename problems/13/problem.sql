@@ -1,1 +1,1 @@
-# Move data from one table to another
+# Move localization data from the categories table to the localizations table
