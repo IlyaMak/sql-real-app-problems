@@ -56,3 +56,11 @@ CREATE TABLE IF NOT EXISTS localizations (
     PRIMARY KEY (id)
 )
 CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS quizzes (
+    id INT NOT NULL AUTO_INCREMENT,
+    category_id INT NOT NULL,
+    priority INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
