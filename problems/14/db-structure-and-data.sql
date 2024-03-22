@@ -10,15 +10,11 @@ DELIMITER $$
 CREATE PROCEDURE generate_data()
 BEGIN
     SET @i = 0;
-    SET @j = 0;
 
-    WHILE @i < 10 DO
-        WHILE @j < 10000 DO
-            INSERT INTO `quizzes` (`category_id`,`priority`)
-            SELECT `id`,@i
-            FROM `categories`;
-            SET @j = @j + 1;
-            END WHILE;
+    WHILE @i < 10000 DO
+        INSERT INTO `quizzes` (`category_id`,`priority`)
+        SELECT `id`,@i
+        FROM `categories`;
         SET @i = @i + 1;
     END WHILE;
 END$$
