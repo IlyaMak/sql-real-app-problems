@@ -31,3 +31,27 @@ CALL generate_data();
 INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
 SELECT `id`,'quiz','quiz_question',UUID(),UUID(),UUID(),UUID(),UUID()
 FROM `quizzes`;
+
+# Problem:
+# Need to generate quiz_answers
+
+# Solution:
+# Runtime ~1.4 seconds
+
+INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
+SELECT `id`,0
+FROM `quizzes`;
+
+INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
+SELECT `id`,1
+FROM `quizzes`;
+
+# Problem:
+# Need to generate quiz_answers localizations
+
+# Solution:
+# Runtime ~1.3 seconds
+
+INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
+SELECT `id`,'quiz','quiz_answer',UUID(),UUID(),UUID(),UUID(),UUID()
+FROM `quiz_answers`;

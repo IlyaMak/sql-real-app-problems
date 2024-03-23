@@ -64,3 +64,11 @@ CREATE TABLE IF NOT EXISTS quizzes (
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
+CREATE TABLE IF NOT EXISTS quiz_answers (
+    id INT NOT NULL AUTO_INCREMENT,
+    quiz_id INT NOT NULL,
+    is_correct TINYINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(id)
+);
