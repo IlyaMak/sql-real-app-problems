@@ -36,37 +36,15 @@ FROM `quizzes`;
 # Need to generate quiz_answers
 
 # Solution:
-# Runtime ~1.7 seconds
+# Runtime ~1.4 seconds
 
-DROP PROCEDURE IF EXISTS generate_data;
+INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
+SELECT `id`,0
+FROM `quizzes`;
 
-DELIMITER $$
-CREATE PROCEDURE generate_data()
-BEGIN
-    DECLARE limitValue INT DEFAULT 0;
-    DECLARE offsetValue INT DEFAULT 0;
-    SET @i = 0;
-    SET limitValue = 10000;
-    SET offsetValue = 0;
-
-    WHILE @i < 10 DO
-        INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
-        SELECT `id`,0
-        FROM `quizzes`
-        LIMIT limitValue OFFSET offsetValue;
-
-        INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
-        SELECT `id`,1
-        FROM `quizzes`
-        LIMIT limitValue OFFSET offsetValue;
-
-        SET offsetValue = offsetValue + 10000;
-        SET @i = @i + 1;
-    END WHILE;
-END$$
-DELIMITER ;
-
-CALL generate_data();
+INSERT INTO `quiz_answers` (`quiz_id`,`is_correct`)
+SELECT `id`,1
+FROM `quizzes`;
 
 # Problem:
 # Need to generate quiz_answers localizations
