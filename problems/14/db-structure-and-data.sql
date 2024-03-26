@@ -55,3 +55,33 @@ FROM `quizzes`;
 INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
 SELECT `id`,'quiz','quiz_answer',UUID(),UUID(),UUID(),UUID(),UUID()
 FROM `quiz_answers`;
+
+# Problem:
+# Need to generate millions of quiz_user_answers
+
+# Solution:
+# Runtime ~130 seconds
+
+DROP PROCEDURE IF EXISTS generate_data;
+
+DELIMITER $$
+CREATE PROCEDURE generate_data()
+BEGIN
+    SET @i = 0;
+
+    WHILE @i < 20 DO
+        INSERT INTO `quiz_user_answers` (`user_id`,`quiz_answer_id`,`thinking_seconds`,`used_hints`,`created_at`)
+        SELECT
+            FLOOR(RAND() * 1000000) + 1,
+            `id`,
+            FLOOR(RAND() * 56) + 5,
+            FLOOR(RAND() * 4),
+            TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00')
+        FROM `quiz_answers`
+        ORDER BY RAND() LIMIT 100000;
+        SET @i = @i + 1;
+    END WHILE;
+END$$
+DELIMITER ;
+
+CALL generate_data();
