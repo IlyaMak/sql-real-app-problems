@@ -55,3 +55,49 @@ FROM `quizzes`;
 INSERT INTO `localizations` (`child_id`,`entity`,`key_name`,`be`,`cz`,`en`,`lv`,`pl`)
 SELECT `id`,'quiz','quiz_answer',UUID(),UUID(),UUID(),UUID(),UUID()
 FROM `quiz_answers`;
+
+# Problem:
+# Need to generate millions of quiz_user_answers
+
+# Solution:
+# Runtime ~ seconds
+
+DROP PROCEDURE IF EXISTS generate_data;
+
+DELIMITER $$
+CREATE PROCEDURE generate_data()
+BEGIN
+    DECLARE createdAt DATETIME;
+    SET @i = 0;
+
+    WHILE @i < 2000 DO
+        SET @query =
+            'INSERT INTO `quiz_user_answers` (`user_id`,`quiz_id`,`quiz_answer_id`,`thinking_seconds`,`used_hints`,`created_at`)
+            VALUES ';
+        SET @j = 0;
+
+        WHILE @j < 1000 DO
+            SET createdAt = TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00');
+            SET @query = CONCAT(
+                @query,
+                IF(@j = 0, '', ','),
+                '(
+                    FLOOR(RAND() * 1000000) + 1,'
+                    SELECT `id` FROM `quizzes` ORDER BY RAND() LIMIT 1 + ','
+                    SELECT `id` FROM `quiz_answers` ORDER BY RAND() LIMIT 1000 + ','
+                    'FLOOR(RAND() * 60) + 5,
+                    FLOOR(RAND() * 3),"',
+                    createdAt,
+                '")'
+            );
+            SET @j = @j + 1;
+        END WHILE;
+
+        PREPARE myquery FROM @query;
+        EXECUTE myquery;
+        SET @i = @i + 1;
+    END WHILE;
+END$$
+DELIMITER ;
+
+CALL generate_data();
