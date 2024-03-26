@@ -76,13 +76,11 @@ CREATE TABLE IF NOT EXISTS quiz_answers (
 CREATE TABLE IF NOT EXISTS quiz_user_answers (
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    quiz_id INT NOT NULL,
     quiz_answer_id INT NOT NULL,
     thinking_seconds TINYINT NOT NULL,
     used_hints INT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (quiz_id) REFERENCES quizzes(id),
     FOREIGN KEY (quiz_answer_id) REFERENCES quiz_answers(id)
 );
