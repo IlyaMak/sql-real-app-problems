@@ -74,8 +74,8 @@ BEGIN
         SELECT
             FLOOR(RAND() * 1000000) + 1,
             `id`,
-            FLOOR(RAND() * 60) + 5,
-            FLOOR(RAND() * 3),
+            FLOOR(RAND() * 56) + 5,
+            FLOOR(RAND() * 4),
             TIMESTAMPADD(SECOND, FLOOR(RAND() * TIMESTAMPDIFF(SECOND, '2022-01-01 00:00:00', '2023-12-31 23:59:59')), '2022-01-01 00:00:00')
         FROM `quiz_answers`
         ORDER BY RAND() LIMIT 100000;
